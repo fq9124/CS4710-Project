@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
  
 import javax.servlet.RequestDispatcher;
@@ -67,7 +68,13 @@ public class ControlServlet extends HttpServlet {
     
     private void listPeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<People> listPeople = peopleDAO.listAllPeople();
+        List<People> listPeople = new ArrayList<>();
+        People person = new People();
+        person.setName("fake_guy");
+        person.setId(1);
+        person.setAddress("51 fake st");
+        person.setStatus("st");
+        listPeople.add(person);
         request.setAttribute("listPeople", listPeople);       
         RequestDispatcher dispatcher = request.getRequestDispatcher("PeopleList.jsp");       
         dispatcher.forward(request, response);
